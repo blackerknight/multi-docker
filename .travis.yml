@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t blacker/react_test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true blacker/react_test npm test
+
+after_success:
+  - docker build -t blacker/multi-client ./client
+  - docker build -t blacker/multi-nginx ./nginx
+  - docker build -t blacker/multi-server ./server
+  - docker build -t blacker/multi-worker ./worker
