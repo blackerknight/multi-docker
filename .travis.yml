@@ -13,3 +13,10 @@ after_success:
   - docker build -t blacker/multi-nginx ./nginx
   - docker build -t blacker/multi-server ./server
   - docker build -t blacker/multi-worker ./worker
+  # login into the docker CLI 
+  - echo "$DOCKER_PASSWORD" | docker login u "$DOCKER_ID" --password-stdin
+  # take those images and push to docker hub
+  - docker push blacker/multi-client
+  - docker push blacker/multi-nginx
+  - docker push blacker/multi-server
+  - docker push blacker/multi-worker
