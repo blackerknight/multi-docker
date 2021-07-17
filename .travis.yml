@@ -10,15 +10,16 @@ script:
   - docker run -e CI=true blacker/react_test npm test
 
 after_success:
-  - docker build -t blacker/multi-client ./client
-  - docker build -t blacker/multi-nginx ./nginx
-  - docker build -t blacker/multi-server ./server
-  - docker build -t blacker/multi-worker ./worker
+  - docker build -t blacker12/multi-client ./client
+  - docker build -t blacker12/multi-nginx ./nginx
+  - docker build -t blacker12/multi-server ./server
+  - docker build -t blacker12/multi-worker ./worker
   # login into the docker CLI 
-  - echo $DOCKER_PASSWORD | docker login -u $DOCKER_ID --password-stdin
+  # - echo $DOCKER_PASSWORD | docker login -u $DOCKER_ID --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   
   # take those images and push to docker hub
-  - docker push blacker/multi-client
-  - docker push blacker/multi-nginx
-  - docker push blacker/multi-server
-  - docker push blacker/multi-worker
+  - docker push blacker12/multi-client
+  - docker push blacker12/multi-nginx
+  - docker push blacker12/multi-server
+  - docker push blacker12/multi-worker
